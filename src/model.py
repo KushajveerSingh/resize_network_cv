@@ -32,19 +32,20 @@ class Module(LightningModule):
         y_hat = self(x)
         loss = self.loss(y_hat, y)
 
-        self.log('loss', loss, on_step=True, on_epoch=True, prog_bar=True)
+        self.log('loss', loss, on_step=True, on_epoch=False, prog_bar=True)
         return loss
 
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        y_pred = nn.Softmax()(y_hat)
+        y_pred = nn.Softmax(dim=1)(y_hat)
         loss = self.loss(y_hat, y)
 
-        self.log('val_loss', loss, on_step=True, on_epoch=True, prog_bar=False)
+        self.log('val_loss', loss, on_step=True, on_epoch=True)
 
         self.accuracy(y_pred, y)
-        self.log('acc', self.accuracy, on_step=True, on_epoch=True)
+        self.log('acc', self.accuracy, on_step=True, on_epoch=True,
+                 prog_bar=True)
 
     def configure_optimizers(self):
         optim = torch.optim.Adam(self.parameters(), lr=self.cfg.lr,

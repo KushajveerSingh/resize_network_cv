@@ -35,6 +35,19 @@ PyTorch implementation of the paper "Learning to Resize Images for Computer Visi
 </table>
 
 ## Details of config file
+`cfg.data` contains the arguments to load the desired dataset. List of all arguments is shown below
+```
+data:
+  root: ../data     # directory where data is downloaded (not including the folder name)
+  name: imagenette2  # "imagenette2" or "imagewoof2" (folder name of dataset inside `root`)
+  resizer_image_size: 448  # size of images passed to resizer model
+  image_size: 224          # size of images passed to CNN model
+  num_classes: 10          # number of labels in training dataset
+
+  # Passed to torch.utils.data.DataLoader
+  batch_size: 64
+  num_workers: 8
+```
 
 ## Download datasets
 `Imagenette` and `Imagewoof` datasets are used. You can learn more about the datasets at [fastai/imagenette](https://github.com/fastai/imagenette). The instructions to download and setup the data are provided below or you can use [download_data.sh](download_data.sh) script to do all of this for you (`./download_data.sh`).
