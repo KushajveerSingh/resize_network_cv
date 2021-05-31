@@ -26,10 +26,7 @@ def main(cfg: DictConfig):
                       max_epochs=cfg.epochs,
                       precision=cfg.precision)
 
-    if cfg.tune.tune:
-        trainer.tune(model, datamodule=dm)
-    else:
-        trainer.fit(model, datamodule=dm)
+    trainer.fit(model, datamodule=dm)
 
 
 if __name__ == "__main__":

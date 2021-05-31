@@ -25,3 +25,8 @@ trainer:
   gpus: 1
   epochs: 300
   precision: 16
+
+# "run.dir": specifies where the outputs are stored for each run
+hydra:
+  run:
+    dir: ../outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
