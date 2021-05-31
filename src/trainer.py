@@ -19,9 +19,7 @@ def main(cfg: DictConfig):
                                save_last=True,
                                mode='max')
 
-    trainer = Trainer(auto_scale_batch_size=cfg.tune.auto_scale_batch_size,
-                      gpus=cfg.gpus,
-                      auto_lr_find=cfg.tune.auto_lr_find,
+    trainer = Trainer(gpus=cfg.gpus,
                       benchmark=True,
                       callbacks=[callback],
                       check_val_every_n_epoch=5,

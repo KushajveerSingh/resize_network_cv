@@ -9,7 +9,7 @@ data:
   batch_size: 64
   num_workers: 8
 
-apply_resizer_model: true
+apply_resizer_model: false
 resizer:
   in_channels: 3       # Number of input channels of resizer (for RGB images it is 3)
   out_channels: 3      # Number of output channels of resizer (for RGB images it is 3)
@@ -24,9 +24,4 @@ trainer:
   
   gpus: 1
   epochs: 300
-  precision: 32
-
-  tune:
-    tune: true
-    auto_scale_batch_size: binsearch
-    auto_lr_find: true
+  precision: 16

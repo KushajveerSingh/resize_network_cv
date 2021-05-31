@@ -9,10 +9,12 @@ class ResBlock(nn.Module):
     def __init__(self, channel_size: int, negative_slope: float = 0.2):
         super().__init__()
         self.block = nn.Sequential(
-            nn.Conv2d(channel_size, channel_size, kernel_size=3, padding=1),
+            nn.Conv2d(channel_size, channel_size, kernel_size=3, padding=1,
+                      bias=False),
             nn.BatchNorm2d(channel_size),
             nn.LeakyReLU(negative_slope, inplace=True),
-            nn.Conv2d(channel_size, channel_size, kernel_size=3, padding=1),
+            nn.Conv2d(channel_size, channel_size, kernel_size=3, padding=1,
+                      bias=False),
             nn.BatchNorm2d(channel_size)
         )
 
@@ -33,7 +35,7 @@ class Resizer(nn.Module):
         self.module1 = nn.Sequential(
             nn.Conv2d(cfg.resizer.in_channels, n, kernel_size=7, padding=3),
             nn.LeakyReLU(slope, inplace=True),
-            nn.Conv2d(n, n, kernel_size=1),
+            nn.Conv2d(n, n, kernel_size=1, bias=False),
             nn.LeakyReLU(slope, inplace=True),
             nn.BatchNorm2d(n)
         )
@@ -44,7 +46,7 @@ class Resizer(nn.Module):
         self.resblocks = nn.Sequential(*resblocks)
 
         self.module3 = nn.Sequential(
-            nn.Conv2d(n, n, kernel_size=3, padding=1),
+            nn.Conv2d(n, n, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(n)
         )
 

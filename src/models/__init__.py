@@ -8,7 +8,11 @@ def get_model(name: str, cfg: DictConfig):
     if name == "resizer":
         return Resizer(cfg)
     elif name == "base_model":
-        return get_base_model(cfg.pretrained, cfg.data.num_classes)
+        if cfg.apply_resizer_model:
+            in_channels = cfg.resizer.out_channels
+        else:
+            in_channels = cfg.resizer.in_channels
+        return get_base_model(in_channels, cfg.data.num_classes)
     else:
         raise ValueError(f"Incorrect name={name}. The valid options are"
                          "('resizer', 'base_model')")
