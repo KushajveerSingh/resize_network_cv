@@ -1,0 +1,32 @@
+data:
+  root: ../data     # directory where data is downloaded (not including the folder name)
+  name: imagenette2  # "imagenette2" or "imagewoof2" (folder name of dataset inside `root`)
+  resizer_image_size: 448  # size of images passed to resizer model
+  image_size: 224          # size of images passed to CNN model
+  num_classes: 10          # number of labels in training dataset
+
+  # Passed to torch.utils.data.DataLoader
+  batch_size: 64
+  num_workers: 8
+
+apply_resizer_model: true
+resizer:
+  in_channels: 3       # Number of input channels of resizer (for RGB images it is 3)
+  out_channels: 3      # Number of output channels of resizer (for RGB images it is 3)
+  num_kernels: 16      # Same as `n` in paper
+  num_resblocks: 2     # Same as 'r' in paper
+  negative_slope: 0.2  # Used by leaky relu
+  interpolate_mode: bilinear  # Passed to torch.nn.functional.interpolate
+
+trainer:
+  lr: 0.05
+  weight_decay: 1e-5
+  
+  gpus: 1
+  epochs: 300
+  precision: 32
+
+  tune:
+    tune: true
+    auto_scale_batch_size: binsearch
+    auto_lr_find: true
