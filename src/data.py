@@ -55,6 +55,7 @@ class DataModule(LightningDataModule):
         self.val_data = ImageFolder(os.path.join(self.dataset_path, 'val'),
                                     transform=self.test_transform,
                                     loader=self.image_read_func)
+        self.val_length = len(self.val_data)
 
     def train_dataloader(self):
         return torch.utils.data.DataLoader(dataset=self.train_data,

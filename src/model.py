@@ -9,9 +9,10 @@ from models import get_model
 
 
 class Module(LightningModule):
-    def __init__(self, cfg: DictConfig):
+    def __init__(self, cfg: DictConfig, val_length):
         super().__init__()
         self.cfg = cfg.trainer
+        self.val_length = val_length
         if cfg.apply_resizer_model:
             self.resizer_model = get_model('resizer', cfg)
         else:
@@ -49,7 +50,7 @@ class Module(LightningModule):
         acc = 0
         for pred in validation_step_outputs:
             acc += pred
-        acc = acc / len(self.datamodule.valid_dataloader)
+        acc = acc / self.val_length
         self.log('val_acc', acc, on_step=False, on_epoch=True, prog_bar=True)
 
     def configure_optimizers(self):
