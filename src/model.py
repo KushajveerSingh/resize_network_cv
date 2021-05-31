@@ -38,13 +38,11 @@ class Module(LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        y_pred = nn.Softmax(dim=1)(y_hat)
         loss = self.loss(y_hat, y)
+        acc = (y_hat.argmax(-1) == y).sum()
 
-        self.log('val_loss', loss, on_step=True, on_epoch=True)
-
-        self.accuracy(y_pred, y)
-        self.log('acc', self.accuracy, on_step=True, on_epoch=True,
+        self.log('val_loss', loss, on_step=True, on_epoch=False)
+        self.log('acc', acc, on_step=False, on_epoch=True,
                  prog_bar=True)
 
     def configure_optimizers(self):
