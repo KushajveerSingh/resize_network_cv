@@ -7,7 +7,6 @@ data:
   batch_size: 64
   num_workers: 8
 apply_resizer_model: false
-trained_model_path: None
 resizer:
   in_channels: 3
   out_channels: 3

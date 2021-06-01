@@ -49,7 +49,7 @@ class Module(LightningModule):
         optim = torch.optim.SGD(self.parameters(), lr=self.cfg.lr,
                                 momentum=0.9)
         scheduler = torch.optim.lr_scheduler.StepLR(
-            optim, step_size=60, gamma=0.1)
+            optim, step_size=50, gamma=0.8)
 
         return {
             'optimizer': optim,

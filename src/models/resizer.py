@@ -35,7 +35,7 @@ class Resizer(nn.Module):
         self.module1 = nn.Sequential(
             nn.Conv2d(cfg.resizer.in_channels, n, kernel_size=7, padding=3),
             nn.LeakyReLU(slope, inplace=True),
-            nn.Conv2d(n, n, kernel_size=1, bias=False),
+            nn.Conv2d(n, n, kernel_size=1),
             nn.LeakyReLU(slope, inplace=True),
             nn.BatchNorm2d(n)
         )
@@ -72,6 +72,5 @@ class Resizer(nn.Module):
         out = self.module4(out)
 
         out = out + residual
-        out = out / 2  # Stabilizes training
 
         return x
