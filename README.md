@@ -19,31 +19,28 @@ This repository contains the PyTorch implementation of the Resizer model propose
         <th style="text-align:center"> Dataset </th>
         <th style="text-align:center"> Model </th>
         <th style="text-align:center"> Acc </th>
-        <th style="text-align:center"> Parameters (in million) </th>
     </tr>
     <tr>
         <td rowspan=2> Imagenette </td>
         <td> ResNet-50 </td>
-        <td> None </td>
-        <td> 23.5 </td>
+        <td> 82.50 </td>
     </tr>
     <tr>
         <td> Resizer + ResNet-50 </td>
-        <td> None </td>
         <td> None </td>
     </tr>
     <tr>
         <td rowspan=2> Imagewoof </td>
         <td> ResNet-50 </td>
         <td> None </td>
-        <td> None </td>
     </tr>
     <tr>
         <td> Resizer + ResNet-50 </td>
         <td> None </td>
-        <td> None </td>
     </tr>
 </table>
+
+**Note**:- Due to compute limitation I stopped the training of models early. If you want to get better results increase the number of epochs to `300` and change the learning rate scheduler to reduce learning rate every `50` epochs with a factor of `0.8`.
 
 ## Details of config file
 If you are unfamiliar with [hydra](https://hydra.cc/), check my blog [Complete tutorial on how to use Hydra in Machine Learning projects](https://kushajveersingh.github.io/blog/general/2021/03/16/post-0014.html) for a quick guide on how to use hydra.

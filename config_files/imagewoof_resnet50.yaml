@@ -1,0 +1,24 @@
+data:
+  root: ../data
+  name: imagewoof2
+  resizer_image_size: 448
+  image_size: 224
+  num_classes: 10
+  batch_size: 64
+  num_workers: 8
+apply_resizer_model: false
+resizer:
+  in_channels: 3
+  out_channels: 3
+  num_kernels: 16
+  num_resblocks: 2
+  negative_slope: 0.2
+  interpolate_mode: bilinear
+trainer:
+  lr: 0.05
+  gpus: 1
+  epochs: 300
+  precision: 16
+hydra:
+  run:
+    dir: ../outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}

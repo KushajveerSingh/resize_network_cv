@@ -11,11 +11,12 @@ from data import DataModule
 @hydra.main(config_name="config")
 def main(cfg: DictConfig):
     dm = DataModule(cfg)
+    dm.setup()
     model = Module(cfg, dm.val_length)
 
     cfg = cfg.trainer
-    callback = ModelCheckpoint(filename='{epoch}-{acc:.4f}',
-                               monitor='acc',
+    callback = ModelCheckpoint(filename='{epoch}-{val_acc:.4f}',
+                               monitor='val_acc',
                                save_last=True,
                                mode='max')
 

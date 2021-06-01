@@ -3,7 +3,6 @@ from omegaconf import DictConfig
 import torch
 import torch.nn as nn
 from pytorch_lightning import LightningModule
-from torchmetrics.classification import Accuracy
 
 from models import get_model
 
@@ -20,7 +19,6 @@ class Module(LightningModule):
 
         self.base_model = get_model('base_model', cfg)
         self.loss = nn.CrossEntropyLoss()
-        self.accuracy = Accuracy()
 
     def forward(self, x):
         if self.resizer_model is not None:
@@ -32,18 +30,12 @@ class Module(LightningModule):
         x, y = batch
         y_hat = self(x)
         loss = self.loss(y_hat, y)
-
-        self.log('train_loss', loss, on_step=True, on_epoch=False,
-                 prog_bar=True)
         return loss
 
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        loss = self.loss(y_hat, y)
         acc = (y_hat.argmax(-1) == y).sum().item()
-
-        self.log('val_loss', loss, on_step=True)
         return acc
 
     def validation_epoch_end(self, validation_step_outputs):
@@ -54,16 +46,15 @@ class Module(LightningModule):
         self.log('val_acc', acc, on_step=False, on_epoch=True, prog_bar=True)
 
     def configure_optimizers(self):
-        optim = torch.optim.Adam(self.parameters(), lr=self.cfg.lr,
-                                 weight_decay=self.cfg.weight_decay)
-        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optim, mode='min', factor=0.8, min_lr=1e-5)
+        optim = torch.optim.SGD(self.parameters(), lr=self.cfg.lr,
+                                momentum=0.9)
+        scheduler = torch.optim.lr_scheduler.StepLR(
+            optim, step_size=60, gamma=0.1)
 
         return {
             'optimizer': optim,
             'lr_scheduler': {
                 'scheduler': scheduler,
-                'monitor': 'val_loss',
                 'interval': 'epoch',
             }
         }

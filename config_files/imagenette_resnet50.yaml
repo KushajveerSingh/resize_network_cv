@@ -4,8 +4,8 @@ data:
   resizer_image_size: 448
   image_size: 224
   num_classes: 10
-  batch_size: 200
-  num_workers: 20
+  batch_size: 64
+  num_workers: 8
 apply_resizer_model: false
 resizer:
   in_channels: 3
@@ -16,7 +16,6 @@ resizer:
   interpolate_mode: bilinear
 trainer:
   lr: 0.05
-  weight_decay: 1e-5
   gpus: 1
   epochs: 300
   precision: 16

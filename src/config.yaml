@@ -6,8 +6,8 @@ data:
   num_classes: 10          # number of labels in training dataset
 
   # Passed to torch.utils.data.DataLoader
-  batch_size: 200
-  num_workers: 20
+  batch_size: 16
+  num_workers: 4
 
 apply_resizer_model: false
 resizer:
@@ -20,10 +20,9 @@ resizer:
 
 trainer:
   lr: 0.05
-  weight_decay: 1e-5
   
   gpus: 1
-  epochs: 300
+  epochs: 180
   precision: 16
 
 # "run.dir": specifies where the outputs are stored for each run
