@@ -62,17 +62,16 @@ class Resizer(nn.Module):
     def forward(self, x):
         residual = self.interpolate(x)
 
-        x = self.module1(x)
-        x = self.interpolate(x)
+        out = self.module1(x)
+        out_residual = self.interpolate(out)
 
-        residual2 = x
+        out = self.resblocks(out_residual)
+        out = self.module3(out)
+        out = out + out_residual
 
-        x = self.resblocks(x)
-        x = self.module3(x)
-        x = x + residual2
+        out = self.module4(out)
 
-        x = self.module4(x)
-
-        x = x + residual
+        out = out + residual
+        out = out / 2  # Stabilizes training
 
         return x

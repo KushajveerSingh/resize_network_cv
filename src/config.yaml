@@ -9,7 +9,8 @@ data:
   batch_size: 16
   num_workers: 4
 
-apply_resizer_model: false
+apply_resizer_model: true
+trained_model_path: None  # path to checkpoint of trained Module
 resizer:
   in_channels: 3       # Number of input channels of resizer (for RGB images it is 3)
   out_channels: 3      # Number of output channels of resizer (for RGB images it is 3)
@@ -19,10 +20,11 @@ resizer:
   interpolate_mode: bilinear  # Passed to torch.nn.functional.interpolate
 
 trainer:
-  lr: 0.05
-  
+  lr: 0.0005
+  gradient_clip_value: 0
+  check_val_every_n_epoch: 2
   gpus: 1
-  epochs: 180
+  epochs: 30
   precision: 16
 
 # "run.dir": specifies where the outputs are stored for each run
