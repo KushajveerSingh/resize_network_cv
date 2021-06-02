@@ -1,8 +1,8 @@
 data:
   root: ../data     # directory where data is downloaded (not including the folder name)
   name: imagenette2  # "imagenette2" or "imagewoof2" (folder name of dataset inside `root`)
-  resizer_image_size: 300  # size of images passed to resizer model
-  image_size: 150          # size of images passed to CNN model
+  resizer_image_size: 448  # size of images passed to resizer model
+  image_size: 224          # size of images passed to CNN model
   num_classes: 10          # number of labels in training dataset
 
   # Passed to torch.utils.data.DataLoader
@@ -20,9 +20,9 @@ resizer:
 
 trainer:
   lr: 0.005
-  gradient_clip_value: 2
+  gradient_clip_value: 0
   check_val_every_n_epoch: 10
-  gpus: 2
+  gpus: 1
   epochs: 200
   precision: 16
 

@@ -1,7 +1,7 @@
 data:
   root: ../data
   name: imagewoof2
-  resizer_image_size: 448
+  resizer_image_size: 300
   image_size: 224
   num_classes: 10
   batch_size: 64
@@ -15,11 +15,11 @@ resizer:
   negative_slope: 0.2
   interpolate_mode: bilinear
 trainer:
-  lr: 0.05
+  lr: 0.005
   gradient_clip_value: 0
-  check_val_every_n_epoch: 5
+  check_val_every_n_epoch: 10
   gpus: 1
-  epochs: 300
+  epochs: 250
   precision: 16
 hydra:
   run:

@@ -36,14 +36,14 @@ class DataModule(LightningDataModule):
                                        mode=io.image.ImageReadMode.RGB)
 
         self.train_transform = T.Compose([
-            T.Resize(image_size),
+            T.Resize((image_size, image_size)),
             T.RandomHorizontalFlip(),
             T.ConvertImageDtype(torch.float32),
             T.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         ])
 
         self.test_transform = T.Compose([
-            T.Resize(image_size),
+            T.Resize((image_size, image_size)),
             T.ConvertImageDtype(torch.float32),
             T.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         ])

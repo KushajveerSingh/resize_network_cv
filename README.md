@@ -23,7 +23,7 @@ This repository contains the PyTorch implementation of the Resizer model propose
     <tr>
         <td rowspan=2> Imagenette </td>
         <td> ResNet-50 </td>
-        <td> 82.50 </td>
+        <td> 81.07 </td>
     </tr>
     <tr>
         <td> Resizer + ResNet-50 </td>
@@ -32,7 +32,7 @@ This repository contains the PyTorch implementation of the Resizer model propose
     <tr>
         <td rowspan=2> Imagewoof </td>
         <td> ResNet-50 </td>
-        <td> 75.80 </td>
+        <td> 58.13 </td>
     </tr>
     <tr>
         <td> Resizer + ResNet-50 </td>
