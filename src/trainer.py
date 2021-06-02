@@ -1,6 +1,8 @@
 from omegaconf import DictConfig
 import hydra
 
+import os
+import torch
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
 
@@ -13,6 +15,17 @@ def main(cfg: DictConfig):
     dm = DataModule(cfg)
     dm.setup()
     model = Module(cfg, dm.val_length)
+
+    if cfg.apply_resizer_model:
+        path = hydra.utils.to_absolute_path(cfg.trained_path)
+        path = os.path.abspath(path)
+        path = os.path.join(path, f"{cfg.data.name}.ckpt")
+        ckpt = torch.load(path)['state_dict']
+        state_dict = {}
+        for k, v in ckpt.items():
+            k = k[k.find('.')+1:]
+            state_dict[k] = v
+        model.base_model.load_state_dict(state_dict)
 
     cfg = cfg.trainer
     callback = ModelCheckpoint(filename="{epoch}-{val_acc}",
