@@ -73,4 +73,4 @@ class Resizer(nn.Module):
 
         out = out + residual
 
-        return x
+        return out
